@@ -1,0 +1,53 @@
+<?php
+// $Id: apadana.install
+/**
+* Implementation of hook_install()
+*/
+
+function apadana_install() 
+{
+//install alredy defined schema
+  drupal_install_schema('apadana');
+// output message
+  drupal_set_message(t('Apadana module installed successfully.'));
+}
+
+/**
+* Implementation of hook_uninstall()
+*/
+
+function apadana_uninstall() 
+{
+//unistalling apadana schema
+  drupal_uninstall_schema('apadana');
+//output message
+  drupal_set_message(t('Apadana module successfully uninstalled'));
+}
+
+
+// creating schema for install and unistall
+function apadana_schema() 
+{
+$schema['martinbook'] = array(
+    'fields' => array(
+
+      'bid' => array(
+        'type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0,
+      ),
+      'book' => array(
+        'type' => 'varchar', 'length' => 3, 'not null' => TRUE, 'default' => '',
+      ),
+      'chapter' => array(
+        'type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0,
+      ),
+      'verse' => array(
+        'type' => 'int', 'unsigned' => TRUE, 'not null' => TRUE, 'default' => 0,
+      ),
+      'context' => array(
+        'type' => 'text', 'length' => 500, 'not null' => TRUE, 'default' => '',
+      ),
+    ),
+    'primary key' => array('bid'),
+  );
+return $schema;
+}

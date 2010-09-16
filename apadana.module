@@ -1,0 +1,23 @@
+<?php
+// $Id$
+
+function apadana_block($op = "list", $delta = 0) 
+{
+
+
+	switch ($op) 
+		{
+		case 'list':
+		$blocks[0]['info'] = t('APADANA');
+		return $blocks;
+
+		case 'view':
+		$block['subject'] = t('Bible Search');
+		$today = getdate();
+		$block['content'] = t("Today is $today[weekday]");
+		return $block;
+
+		}
+}
+
+
