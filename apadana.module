@@ -1,23 +1,56 @@
 <?php
 // $Id$
 
+drupal_add_css(drupal_get_path('module', 'apadana') . '/apadana.css');
+
+
 function apadana_block($op = "list", $delta = 0) 
 {
-
-
 	switch ($op) 
 		{
 		case 'list':
+		// this is block name in block page
 		$blocks[0]['info'] = t('APADANA');
 		return $blocks;
-
+		break;
+		
 		case 'view':
-		$block['subject'] = t('Bible Search');
-		$today = getdate();
-		$block['content'] = t("Today is $today[weekday]");
-		return $block;
-
+		//$block['subject'] = t('');
+		//$today = getdate();
+		//$block['content'] = t("Today is $today[weekday]");
+		
+		$block['subject'] = t('ApAdAnA');
+        $block['content'] = drupal_get_form('apadana_search_form_noframe');
+        return $block;
+		break;
 		}
+		
 }
+
+
+
+
+function apadana_search_form_noframe()
+
+{
+  $form['search']['keyword'] = array
+  (
+    '#type' => 'textfield',
+    '#title' => t('Martin Engine'),
+	'#attributes' => array('class' => 'searcht'),
+    '#default_value' => '',
+  );
+  
+  $form['search']['submit'] = array
+  (
+    '#type' => 'submit',
+    '#value' => t('Search'),
+    '#submit' => array('apa_search_form_submit'),
+  );
+  return $form;
+  
+}
+
+
 
 
