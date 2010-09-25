@@ -27,26 +27,45 @@ function apadana_block($op = "list", $delta = 0)
 		
 }
 
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 function apadana_search_form_noframe()
 
 {
-  $form['search']['keyword'] = array
+  /*$form['search']['keyword'] = array
   (
     '#type' => 'textfield',
     '#title' => t('Martin Engine'),
 	'#attributes' => array('class' => 'searcht'),
     '#default_value' => '',
-  );
+  );*/
   
-  $form['search']['select'] = array(
+  // option1
+  $form['bar1']['select'] = array(
 	    '#type' => 'select',
 	    '#title' => t('Bible name'),
 	   '#default_value' => '',
 	    '#options' => get_book_list(),
-	    '#attributes' => array('class' => 'booklist'),	
+	    '#attributes' => array('class' => 'booklist'),		
+	  );
+	  
+  //option 2
+  $form['bar2']['select'] = array(
+	    '#type' => 'select',
+	    '#title' => t('chapter'),
+	   '#default_value' => '',
+	    '#options' => get_chapter_list(),
+	    '#attributes' => array('class' => 'chapterlist'),		
+	  );
+	  
+  //option 2
+  $form['bar3']['select'] = array(
+	    '#type' => 'select',
+	    '#title' => t('verses'),
+	   '#default_value' => '',
+	    '#options' => array('v1' => t('1'), 'v2' => t('2')),
+	    '#attributes' => array('class' => 'verseslist'),		
 	  );
 	  
   
@@ -60,23 +79,21 @@ function apadana_search_form_noframe()
   
 }
 
-
-
-
-
-
-
-
-
-
-
+//////////////////////////////////////////////////
 
 /*function _bible_get_bible_count() 
 {
   return db_result(db_query("SELECT COUNT(bid) FROM {bible_list}"));
 }*/
 
+///////////////////////////////////////////////////
 
+function apa_search_form_submit ($form, &$form_state) 
+{
+  $form_state['redirect'] = 'apa select option'. $form['bar2']['select']['#value'] .'/'. $form['bar2']['select']['#value'];
+}
+
+///////////////////////////////////////////////////
 
 function get_book_list()
 {
@@ -89,6 +106,18 @@ function get_book_list()
   return $biblelist;
 }
 
+//////////////////////////////////////////////////
+
+function get_chapter_list()
+{
+	$sqlcmd = "SELECT chapter FROM {martinbook}";
+	$queryResult = db_query($sqlcmd);
+    while ($bb = db_fetch_object($queryResult)) 
+    {
+     $chapterlist[$bb->chapter] = $bb->chapter;
+    }
+  return $chapterlist;
+}
 
 
 

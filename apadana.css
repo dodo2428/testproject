@@ -4,5 +4,13 @@ input.searcht
 }
 
 select.booklist {
-	width: 170px;
+	width: auto;
+}
+
+select.chapterlist {
+	width: 70px;
+}
+
+select.verseslist {
+	width: 70px;
 }
