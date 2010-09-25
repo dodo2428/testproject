@@ -41,6 +41,15 @@ function apadana_search_form_noframe()
     '#default_value' => '',
   );
   
+  $form['search']['select'] = array(
+	    '#type' => 'select',
+	    '#title' => t('Bible name'),
+	   '#default_value' => '',
+	    '#options' => get_book_list(),
+	    '#attributes' => array('class' => 'booklist'),	
+	  );
+	  
+  
   $form['search']['submit'] = array
   (
     '#type' => 'submit',
@@ -49,6 +58,35 @@ function apadana_search_form_noframe()
   );
   return $form;
   
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/*function _bible_get_bible_count() 
+{
+  return db_result(db_query("SELECT COUNT(bid) FROM {bible_list}"));
+}*/
+
+
+
+function get_book_list()
+{
+	$sqlcmd = "SELECT book FROM {martinbook}";
+	$queryResult = db_query($sqlcmd);
+    while ($bb = db_fetch_object($queryResult)) 
+    {
+     $biblelist[$bb->book] = $bb->book;
+    }
+  return $biblelist;
 }
 
 
